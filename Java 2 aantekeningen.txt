@@ -1,0 +1,173 @@
+﻿Grafische libs:
+	import java.awt;
+	import javax.swing.*;
+
+Opbouw
+1. Applet of Applicatie (extends JFrame (venster met titelbalk))
+2. Paneel
+3. 
+	
+Container:
+	JPanel
+
+	Instruments:
+	JLabel("Hey there!");
+	JButton("Nice!"); 
+	JTextField (20); //Textvak met aantal karakters
+
+Make applet:
+	public class myApplet extends JApplet	//extends geeft subclass
+	init() //functie aanmaken, deze wordt door de browser opgezocht en als eerste uitgevoerd
+	setContentPane( paneel );
+
+Applicatie draait in een JFrame:
+	JFrame myFrame = new myApplet();
+
+	Close event:
+	frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+
+	frame.setSize, frame.setTitle etc.
+	
+Eventhandling:
+	class myHandler implements ActionListener
+	{
+		public void actionPerformed( ActionEvent e)
+		{
+			//do action
+		}
+	}
+
+	myHandler handler = new myHandler();
+	myButton.addActionListener (handler);
+	
+	//Kan ook gebruikt worden bij tekstvak, de ENTER toets zal de actie laten uitvoeren
+	
+Kleur en HTML:
+	myButton.setBackground(Color.RED);
+	myLabel.setText("<HTML>Dit is een <BR><I>knop<I>");
+	
+Layout:
+	Automatisch wordt FlowLayout toegepast
+	myLabel.setLocation(x,y);
+	myLabel.setSize(l,w);
+	myLabel.setBounds(x,y,l,w);
+	
+	BorderLayout geeft alleen ingevulde gewesten weer
+		5 delen, als in gewesten inclusief center
+		add(myLabel, BorderLayout.SOUTH);
+		setLayout( new BorderLayout() );
+	Gridlayout
+		setLayout( new Gridlayout(x,y) );
+		
+Type conversie
+	int number = Integer.parseInt( myTextLabel.getText() );
+
+Utschakelen componenten
+	setEditable(bool);
+	setEnabled(bool);
+	setVisible(bool);
+	myPanel.validate();
+	
+Tekenen met Java
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent( g );	//teken achtergrond
+		setBackground(Color.WHITE);
+		g.setColor(Color.BLUE)		//Set teken kleur
+		g.drawLine(x1,y1,x2,y2);	//Lijn tekenen
+		g.drawRect(x,y,w,l);	//Vierkant tekenen
+		g.fillRect(x,y,w,l);	//Filled vierkant
+		g.setFont( new Font("SanSerif", Font.BOLD, 14));	//Set font style
+		g.drawString("myString", x,y);	//Teks toevoegen aan grafische tekening met startcoordinaat
+	}
+	
+	
+	Er zijn nog diverse meetkundige vormen te tekenen
+	
+		RGB kleuren
+			Color myColor = new Color(r,g,b);
+			
+	Veelhoeken kunnen gemaakt worden met de klasse Polygon
+	
+	Gebruik repaint(); om te refreshen
+	
+Polygonen
+	Polygon( int[] xPoints, int[] yPoints, int nPoints)
+	
+	int[] xPijl = {x1,x2,x3,x4,x5,x6,x7};
+	int[] xPijl = {y1,y2,y3,y4,y5,y6,y7};
+	pijl1 = new Polygon(xPijl,yPijl,xPijl.length);
+	
+	Polygon coordinaten gaan rechtsom (CW)
+	
+	pijl1.translate(150,0);	//Pijl wordt 150 naar rechts omgeschoven
+	
+Objecten opbergen in een ArryList
+	private ArrayList<Object> myList;	//prototype
+	myList = new ArrayList<Object>();	//declaratie
+	myList.add(myObject);
+	
+	of
+	
+	myList.add(new Cirkel(arguments etc));
+	
+Interface
+	public interface MyClassInterface
+	{
+		public void teken(Graphics g);
+	}
+	
+	Alle objecten van class MyClass hebben nu de methode teken()
+	
+	Daarna alle onderdelen tot subklasse van de interface maken
+		public class MyClass implements MyClassInterface
+		{
+			...
+			public void teken(Graphics g)
+			{
+				g.setColor...etc.
+			}
+		}
+		
+		
+	Meerdere interfaces implementeren kan zo:
+		public class MyClass implements MyClassInterfaceA, MyClassInterfaceB
+		{
+		
+		}
+	
+Abstracte klasse
+	Methode zonder body
+	
+	public abstract class AbstractOnderdeel
+	{
+		protected int links, onder;
+		protected Color kleur;
+		
+		public abstract void teken(Graphics g);
+	}
+	
+	Abstracte klassen kan je alleen overriden en geen instantie van maken zoals dat met een concrete klasse wel kan.
+	
+	public MyClass extends AbstractOnderdeel
+	{
+		
+	}
+	
+Abstracte klassen kunnen atributen , constructors en conctrete methoden bevatten. Interfaces niet. Een klasse kan slechts één superklasse hebben maar meerdere interfaces.
+
+
+Timer
+	private Timer timer;
+	
+	timer = new Timer(1000, new TimeHandler() );
+	timer.start();
+	
+	class TimeHandler implements ActionListener
+	public void actionPerformed( ActionEvent e)
+	{
+		//do your action...
+	}
+
+Afbeeldingen
+	klasse ImageIcon
